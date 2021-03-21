@@ -1,3 +1,4 @@
+CarefulCoreFunctions = {version="1.2.1"}
 local wstc = WindowSetTintColor
 WindowSetTintColor = function(window, r, g, b)
 	if DoesWindowExist(window) then
@@ -32,10 +33,18 @@ WindowSetShowing = function(window, able)
 end
 local wreh = WindowRegisterEventHandler;
 WindowRegisterEventHandler = function(window, event, handler)
-	if DoesWindowExist(window) then
+	if DoesWindowExist(window) and handler ~= nil then
 		wreh(window, event, handler)
 	else
 		d("Failed to register event handler on "..window)
+	end
+end
+local wueh = WindowUnregisterEventHandler;
+WindowUnregisterEventHandler = function(window, event)
+	if DoesWindowExist(window) then
+		wueh(window, event)
+	else
+		d("Failed to unregister event handler on "..window)
 	end
 end
 local dw = DestroyWindow
@@ -129,7 +138,7 @@ WindowGetScreenPosition = function(window)
 		return wgsp(window)
 	else
 		d("Failed to get screen position of "..window)
-		return 0,0,0,0
+		return 0,0
 	end
 end
 local wgp = WindowGetParent
@@ -137,7 +146,7 @@ WindowGetParent = function(window)
 	if DoesWindowExist(window) then
 		return wgp(window)
 	else
-		d("Failed to get screen position of "..window)
+		d("Failed to get parent of "..window)
 		return "Root"
 	end
 end
@@ -156,4 +165,38 @@ WindowClearAnchors = function(window)
 	else
 		d("Failed to clear anchor of "..window)
 	end
+end
+local reh = RegisterEventHandler
+RegisterEventHandler = function(event, handler)
+	if type(handler) == nil then
+		d("Tryed to register no handler for event "..tostring(event))
+		return
+	end
+	if type(handler) == "string" then
+		SendChatText(towstring("/script CarefulCoreFunctions.RegisterEventHandler("..handler..",\""..handler.."\","..tostring(event)..")"),L"")
+		return
+	end
+	reh(event, handler)
+end
+CarefulCoreFunctions.RegisterEventHandler = function(object, event, handler)
+	if type(object) ~= "function" then
+		d("Handler "..handler.." for register event handler not defined")
+		return;
+	end
+	reh(event, handler)
+end
+local ueh = UnregisterEventHandler
+UnregisterEventHandler = function(event, handler)
+	if type(handler) == "string" then
+		SendChatText(towstring("/script CarefulCoreFunctions.UnegisterEventHandler("..handler..",\""..handler.."\","..tostring(event)..")"),L"")
+		return
+	end
+	ueh(event, handler)
+end
+CarefulCoreFunctions.UnegisterEventHandler = function(object, event, handler)
+	if type(object) ~= "function" then
+		d("Handler "..handler.." for unregister event handler not defined")
+		return;
+	end
+	ueh(event, handler)
 end
