@@ -1,4 +1,4 @@
-CarefulCoreFunctions = {version="1.2.1"}
+CarefulCoreFunctions = {version="1.3.3"}
 local wstc = WindowSetTintColor
 WindowSetTintColor = function(window, r, g, b)
 	if DoesWindowExist(window) then
@@ -29,6 +29,15 @@ WindowSetShowing = function(window, able)
 		wss(window, able)
 	else
 		d("Failed to set showing on "..window)
+	end
+end
+local wgs = WindowGetShowing;
+WindowGetShowing = function(window)
+	if DoesWindowExist(window) then
+		return wgs(window)
+	else
+		d("Failed to get showing on "..window)
+		return false
 	end
 end
 local wreh = WindowRegisterEventHandler;
@@ -152,10 +161,10 @@ WindowGetParent = function(window)
 end
 local waa = WindowAddAnchor
 WindowAddAnchor = function(window, anchor, point, refpoint, offsetX, offsetY)
-	if DoesWindowExist(window) then
+	if DoesWindowExist(window) and DoesWindowExist(anchor) then
 		return waa(window, anchor, point, refpoint, offsetX, offsetY)
 	else
-		d("Failed to add anchor to "..window)
+		d("Failed to add anchor "..anchor.." to "..window)
 	end
 end
 local wca = WindowClearAnchors
@@ -172,31 +181,25 @@ RegisterEventHandler = function(event, handler)
 		d("Tryed to register no handler for event "..tostring(event))
 		return
 	end
-	if type(handler) == "string" then
-		SendChatText(towstring("/script CarefulCoreFunctions.RegisterEventHandler("..handler..",\""..handler.."\","..tostring(event)..")"),L"")
-		return
+	local success, errmsg pcall(reh, event, handler)
+	if not success then
+		d("Failed registering event handler")
+		d(errmsg)
 	end
-	reh(event, handler)
-end
-CarefulCoreFunctions.RegisterEventHandler = function(object, event, handler)
-	if type(object) ~= "function" then
-		d("Handler "..handler.." for register event handler not defined")
-		return;
-	end
-	reh(event, handler)
 end
 local ueh = UnregisterEventHandler
 UnregisterEventHandler = function(event, handler)
-	if type(handler) == "string" then
-		SendChatText(towstring("/script CarefulCoreFunctions.UnegisterEventHandler("..handler..",\""..handler.."\","..tostring(event)..")"),L"")
-		return
+	local success, errmsg pcall(ueh, event, handler)
+	if not success then
+		d("Failed unregistering event handler")
+		d(errmsg)
 	end
-	ueh(event, handler)
 end
-CarefulCoreFunctions.UnegisterEventHandler = function(object, event, handler)
-	if type(object) ~= "function" then
-		d("Handler "..handler.." for unregister event handler not defined")
-		return;
+local lbsrf = ListBoxSetRowFilters
+ListBoxSetRowFilters = function(window)
+	if DoesWindowExist(window) then
+		return lbsrf(window)
+	else
+		d("Failed to filters of "..window)
 	end
-	ueh(event, handler)
 end
