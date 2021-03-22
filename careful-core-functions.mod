@@ -2,7 +2,7 @@
 
 <ModuleFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 
-	<UiMod name="Careful Core Functions" version="1.4.0" date="2021-03-22" >
+	<UiMod name="Careful Core Functions" version="1.5.0" date="2021-03-23" >
 
 		<Author name="Idrinth" />
 		

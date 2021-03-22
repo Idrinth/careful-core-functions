@@ -245,3 +245,21 @@ DynamicImageSetRotation = function(window, rotation)
 		d("Failed to rotate "..window)
 	end
 end
+
+CarefulCoreFunctions.ButtonSetPressedFlag = ButtonSetPressedFlag
+ButtonSetPressedFlag = function(window, active)
+	if DoesWindowExist(window) then
+		return CarefulCoreFunctions.ButtonSetPressedFlag(window, active)
+	else
+		d("Failed to set pressed flag of "..window)
+	end
+end
+
+CarefulCoreFunctions.WindowSetId = WindowSetId
+WindowSetId = function(window, id)
+	if DoesWindowExist(window) then
+		return CarefulCoreFunctions.WindowSetId(window, id)
+	else
+		d("Failed to set id of "..window)
+	end
+end
