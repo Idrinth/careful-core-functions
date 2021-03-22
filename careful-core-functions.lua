@@ -1,205 +1,247 @@
-CarefulCoreFunctions = {version="1.3.3"}
-local wstc = WindowSetTintColor
+CarefulCoreFunctions = {version="1.3.4"}
+
+CarefulCoreFunctions.DoesWindowExist = DoesWindowExist
+DoesWindowExist = function(window)
+	if window ~= nil then
+		return CarefulCoreFunctions.DoesWindowExist(window)
+	else
+		return false
+	end
+end
+
+CarefulCoreFunctions.WindowSetTintColor = WindowSetTintColor
 WindowSetTintColor = function(window, r, g, b)
 	if DoesWindowExist(window) then
-		wstc(window, r, g, b)
+		CarefulCoreFunctions.WindowSetTintColor(window, r, g, b)
 	else
 		d("Failed to set tint color on "..window)
 	end
 end
-local dist = DynamicImageSetTexture
+
+CarefulCoreFunctions.DynamicImageSetTexture = DynamicImageSetTexture
 DynamicImageSetTexture = function(window, texture, num1, num2)
 	if DoesWindowExist(window) then
-		dist(window, texture, num1, num2)
+		CarefulCoreFunctions.DynamicImageSetTexture(window, texture, num1, num2)
 	else
 		d("Failed to set texture on "..window)
 	end
 end
-local bsdf = ButtonSetDisabledFlag;
+
+CarefulCoreFunctions.ButtonSetDisabledFlag = ButtonSetDisabledFlag
 ButtonSetDisabledFlag = function(button, able)
 	if DoesWindowExist(button) then
-		bsdf(button, able)
+		CarefulCoreFunctions.ButtonSetDisabledFlag(button, able)
 	else
 		d("Failed to set disabled on "..button)
 	end
 end
-local wss = WindowSetShowing;
+
+CarefulCoreFunctions.WindowSetShowing = WindowSetShowing
 WindowSetShowing = function(window, able)
 	if DoesWindowExist(window) then
-		wss(window, able)
+		CarefulCoreFunctions.WindowSetShowing(window, able)
 	else
 		d("Failed to set showing on "..window)
 	end
 end
-local wgs = WindowGetShowing;
+
+CarefulCoreFunctions.WindowGetShowing = WindowGetShowing
 WindowGetShowing = function(window)
 	if DoesWindowExist(window) then
-		return wgs(window)
+		return CarefulCoreFunctions.WindowGetShowing(window)
 	else
 		d("Failed to get showing on "..window)
 		return false
 	end
 end
-local wreh = WindowRegisterEventHandler;
+
+CarefulCoreFunctions.WindowRegisterEventHandler = WindowRegisterEventHandler
 WindowRegisterEventHandler = function(window, event, handler)
 	if DoesWindowExist(window) and handler ~= nil then
-		wreh(window, event, handler)
+		CarefulCoreFunctions.WindowRegisterEventHandler(window, event, handler)
 	else
 		d("Failed to register event handler on "..window)
 	end
 end
-local wueh = WindowUnregisterEventHandler;
+
+CarefulCoreFunctions.WindowUnregisterEventHandler = WindowUnregisterEventHandler
 WindowUnregisterEventHandler = function(window, event)
 	if DoesWindowExist(window) then
-		wueh(window, event)
+		CarefulCoreFunctions.WindowUnregisterEventHandler(window, event)
 	else
 		d("Failed to unregister event handler on "..window)
 	end
 end
-local dw = DestroyWindow
+
+CarefulCoreFunctions.DestroyWindow = DestroyWindow
 DestroyWindow = function(window)
 	if DoesWindowExist(window) then
-		dw(window)
+		CarefulCoreFunctions.DestroyWindow(window)
 	else
 		d("Failed to destroy "..window)
 	end
 end
-local wga = WindowGetAlpha
+
+CarefulCoreFunctions.WindowGetAlpha = WindowGetAlpha
 WindowGetAlpha = function(window)
 	if DoesWindowExist(window) then
-		return wga(window)
+		return CarefulCoreFunctions.WindowGetAlpha(window)
 	else
 		d("Failed to get alpha of "..window)
 		return 0
 	end
 end
-local wsa = WindowSetAlpha
+
+CarefulCoreFunctions.WindowSetAlpha = WindowSetAlpha
 WindowSetAlpha = function(window, alpha)
 	if DoesWindowExist(window) then
-		return wsa(window, alpha)
+		return CarefulCoreFunctions.WindowSetAlpha(window, alpha)
 	else
 		d("Failed to set alpha of "..window)
 	end
 end
-local wgs = WindowGetScale
+
+CarefulCoreFunctions.WindowGetScale = WindowGetScale
 WindowGetScale = function(window)
 	if DoesWindowExist(window) then
-		return wgs(window)
+		return CarefulCoreFunctions.WindowGetScale(window)
 	else
 		d("Failed to get scale of "..window)
 		return 0
 	end
 end
-local wss = WindowSetScale
+
+CarefulCoreFunctions.WindowSetScale = WindowSetScale
 WindowSetScale = function(window, scale)
 	if DoesWindowExist(window) then
-		return wss(window, scale)
+		return CarefulCoreFunctions.WindowSetScale(window, scale)
 	else
 		d("Failed to set scale of "..window)
 	end
 end
-local wgd = WindowGetDimensions
+
+CarefulCoreFunctions.WindowGetDimensions = WindowGetDimensions
 WindowGetDimensions = function(window)
 	if DoesWindowExist(window) then
-		return wgd(window)
+		return CarefulCoreFunctions.WindowGetDimensions(window)
 	else
 		d("Failed to get dimensions of "..window)
 		return 0, 0
 	end
 end
-local wsd = WindowSetDimensions
+
+CarefulCoreFunctions.WindowSetDimensions = WindowSetDimensions
 WindowSetDimensions = function(window, x, y)
 	if DoesWindowExist(window) then
-		return wsd(window, x, y)
+		return CarefulCoreFunctions.WindowSetDimensions(window, x, y)
 	else
 		d("Failed to set dimensions of "..window)
 	end
 end
-local wgac = WindowGetAnchorCount
+
+CarefulCoreFunctions.WindowGetAnchorCount = WindowGetAnchorCount
 WindowGetAnchorCount = function(window)
 	if DoesWindowExist(window) then
-		return wgac(window)
+		return CarefulCoreFunctions.WindowGetAnchorCount(window)
 	else
 		d("Failed to get dimensions of "..window)
 		return 0
 	end
 end
-local wgofp = WindowGetOffsetFromParent
+
+CarefulCoreFunctions.WindowGetOffsetFromParent = WindowGetOffsetFromParent
 WindowGetOffsetFromParent = function(window)
 	if DoesWindowExist(window) then
-		return wgofp(window)
+		return CarefulCoreFunctions.WindowGetOffsetFromParent(window)
 	else
 		d("Failed to get offset of parent of "..window)
 		return 0, 0
 	end
 end
-local wsofp = WindowSetOffsetFromParent
+
+CarefulCoreFunctions.WindowSetOffsetFromParent = WindowSetOffsetFromParent
 WindowSetOffsetFromParent = function(window, x, y)
 	if DoesWindowExist(window) then
-		return wsofp(window, x, y)
+		return CarefulCoreFunctions.WindowSetOffsetFromParent(window, x, y)
 	else
 		d("Failed to set offset of parent of "..window)
 	end
 end
-local wgsp = WindowGetScreenPosition
+
+CarefulCoreFunctions.WindowGetScreenPosition = WindowGetScreenPosition
 WindowGetScreenPosition = function(window)
 	if DoesWindowExist(window) then
-		return wgsp(window)
+		return CarefulCoreFunctions.WindowGetScreenPosition(window)
 	else
 		d("Failed to get screen position of "..window)
 		return 0,0
 	end
 end
-local wgp = WindowGetParent
+
+CarefulCoreFunctions.WindowGetParent = WindowGetParent
 WindowGetParent = function(window)
 	if DoesWindowExist(window) then
-		return wgp(window)
+		return CarefulCoreFunctions.WindowGetParent(window)
 	else
 		d("Failed to get parent of "..window)
 		return "Root"
 	end
 end
-local waa = WindowAddAnchor
-WindowAddAnchor = function(window, anchor, point, refpoint, offsetX, offsetY)
+
+CarefulCoreFunctions.WindowAddAnchor = WindowAddAnchor
+WindowAddAnchor = function(window, point, anchor, refpoint, offsetX, offsetY)
 	if DoesWindowExist(window) and DoesWindowExist(anchor) then
-		return waa(window, anchor, point, refpoint, offsetX, offsetY)
+		return CarefulCoreFunctions.WindowAddAnchor(window, point, anchor, refpoint, offsetX, offsetY)
 	else
-		d("Failed to add anchor "..anchor.." to "..window)
+		d("Failed to add anchor "..tostring(anchor).." to "..tostring(window))
 	end
 end
-local wca = WindowClearAnchors
+
+CarefulCoreFunctions.WindowClearAnchors = WindowClearAnchors
 WindowClearAnchors = function(window)
 	if DoesWindowExist(window) then
-		return wca(window)
+		return CarefulCoreFunctions.WindowClearAnchors(window)
 	else
 		d("Failed to clear anchor of "..window)
 	end
 end
-local reh = RegisterEventHandler
+
+CarefulCoreFunctions.RegisterEventHandler = RegisterEventHandler
 RegisterEventHandler = function(event, handler)
 	if type(handler) == nil then
 		d("Tryed to register no handler for event "..tostring(event))
 		return
 	end
-	local success, errmsg pcall(reh, event, handler)
+	local success, errmsg pcall(CarefulCoreFunctions.RegisterEventHandler, event, handler)
 	if not success then
 		d("Failed registering event handler")
 		d(errmsg)
 	end
 end
-local ueh = UnregisterEventHandler
+
+CarefulCoreFunctions.UnregisterEventHandler = UnregisterEventHandler
 UnregisterEventHandler = function(event, handler)
-	local success, errmsg pcall(ueh, event, handler)
+	local success, errmsg pcall(CarefulCoreFunctions.UnregisterEventHandler, event, handler)
 	if not success then
 		d("Failed unregistering event handler")
 		d(errmsg)
 	end
 end
-local lbsrf = ListBoxSetRowFilters
+
+CarefulCoreFunctions.ListBoxSetRowFilters = ListBoxSetRowFilters
 ListBoxSetRowFilters = function(window)
 	if DoesWindowExist(window) then
-		return lbsrf(window)
+		return CarefulCoreFunctions.ListBoxSetRowFilters(window)
 	else
-		d("Failed to filters of "..window)
+		d("Failed to set row filters of "..window)
+	end
+end
+
+CarefulCoreFunctions.DynamicImageSetRotation = DynamicImageSetRotation
+DynamicImageSetRotation = function(window, rotation)
+	if DoesWindowExist(window) then
+		return CarefulCoreFunctions.DynamicImageSetRotation(window, rotation)
+	else
+		d("Failed to rotate "..window)
 	end
 end
