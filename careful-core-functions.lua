@@ -263,3 +263,31 @@ WindowSetId = function(window, id)
 		d("Failed to set id of "..window)
 	end
 end
+
+CarefulCoreFunctions.LabelSetText = LabelSetText
+LabelSetText = function(window, text)
+	if DoesWindowExist(window) then
+		return CarefulCoreFunctions.LabelSetText(window, text)
+	else
+		d("Failed to set text of "..window)
+	end
+end
+
+CarefulCoreFunctions.LabelSetTextColor = LabelSetTextColor
+LabelSetTextColor = function(window, r, g, b)
+	if DoesWindowExist(window) then
+		return CarefulCoreFunctions.LabelSetTextColor(window, r, g, b)
+	else
+		d("Failed to set text of "..window)
+	end
+end
+
+
+CarefulCoreFunctions.DynamicImageSetTextureSlice = DynamicImageSetTextureSlice
+DynamicImageSetTextureSlice = function(window, texture)
+	if DoesWindowExist(window) then
+		CarefulCoreFunctions.DynamicImageSetTextureSlice(window, texture)
+	else
+		d("Failed to set texture slice on "..window)
+	end
+end
