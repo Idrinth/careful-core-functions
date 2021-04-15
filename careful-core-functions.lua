@@ -1,4 +1,4 @@
-CarefulCoreFunctions = {version="1.3.4"}
+CarefulCoreFunctions = {}
 
 CarefulCoreFunctions.DoesWindowExist = DoesWindowExist
 DoesWindowExist = function(window)
@@ -107,7 +107,7 @@ WindowGetScale = function(window)
 		return CarefulCoreFunctions.WindowGetScale(window)
 	else
 		d("Failed to get scale of "..tostring(window))
-		return 0
+		return 1
 	end
 end
 
@@ -142,7 +142,13 @@ end
 CarefulCoreFunctions.WindowGetAnchorCount = WindowGetAnchorCount
 WindowGetAnchorCount = function(window)
 	if DoesWindowExist(window) then
-		return CarefulCoreFunctions.WindowGetAnchorCount(window)
+		local count = CarefulCoreFunctions.WindowGetAnchorCount(window)
+		if count ~= nil then
+			return count
+		end
+		d(window)
+		d(DoesWindowExist(window))
+		return 0
 	else
 		d("Failed to get dimensions of "..tostring(window))
 		return 0
@@ -191,7 +197,22 @@ end
 CarefulCoreFunctions.WindowAddAnchor = WindowAddAnchor
 WindowAddAnchor = function(window, point, anchor, refpoint, offsetX, offsetY)
 	if DoesWindowExist(window) and DoesWindowExist(anchor) then
+		if anchor == "Root" then
+			if refpoint == "left" or refpoint == "topleft" or refpoint == "bottomleft" then
+				if offsetX < 0 then
+					offsetX = 0
+				end
+			end
+			if refpoint == "top" or refpoint == "topleft" or refpoint == "topright" then
+				if offsetY < 0 then
+					offsetY = 0
+				end
+			end
+		end
 		return CarefulCoreFunctions.WindowAddAnchor(window, point, anchor, refpoint, offsetX, offsetY)
+	elseif DoesWindowExist(window) then
+		d("Failed to add anchor "..tostring(anchor).." to "..tostring(window))
+		return CarefulCoreFunctions.WindowAddAnchor(window, "left", "Root", "left", 0, 0)
 	else
 		d("Failed to add anchor "..tostring(anchor).." to "..tostring(window))
 	end
