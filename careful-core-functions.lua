@@ -198,14 +198,25 @@ CarefulCoreFunctions.WindowAddAnchor = WindowAddAnchor
 WindowAddAnchor = function(window, point, anchor, refpoint, offsetX, offsetY)
 	if DoesWindowExist(window) and DoesWindowExist(anchor) then
 		if anchor == "Root" then
+			local width, height = WindowGetDimensions("Root");
 			if refpoint == "left" or refpoint == "topleft" or refpoint == "bottomleft" then
-				if offsetX < 0 then
-					offsetX = 0
+				if offsetX < -50 then
+					offsetX = -50
+				end
+			end
+			if refpoint == "right" or refpoint == "topright" or refpoint == "bottomright" then
+				if offsetX > width + 50 then
+					offsetX = width + 50
 				end
 			end
 			if refpoint == "top" or refpoint == "topleft" or refpoint == "topright" then
-				if offsetY < 0 then
-					offsetY = 0
+				if offsetY < -50 then
+					offsetY = -50
+				end
+			end
+			if refpoint == "bottom" or refpoint == "bottomleft" or refpoint == "bottomright" then
+				if offsetY > height + 50 then
+					offsetY = height + 50
 				end
 			end
 		end
